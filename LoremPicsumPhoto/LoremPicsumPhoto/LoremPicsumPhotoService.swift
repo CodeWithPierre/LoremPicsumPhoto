@@ -11,36 +11,7 @@ protocol LoremPicsumPhotoServiceProtocol {
     func fetchLoremPicsumPhotos() async throws -> [LoremPicsumPhoto]
 }
 
-final class LoremPicsumPhotoService: LoremPicsumPhotoServiceProtocol {
-    
-    private let urlString = "https://picsum.photos/v2/list"
-    
-    func fetchLoremPicsumPhotos() async throws -> [LoremPicsumPhoto] {
-        guard let url = URL(string: urlString) else {
-            throw LoremPicsumPhotoServiceError.invalidURL
-        }
-        
-        let (data, response): (Data, URLResponse)
-        do {
-            (data, response) = try await URLSession.shared.data(from: url)
-        } catch {
-            throw LoremPicsumPhotoServiceError.requestFailed()
-        }
-        
-        if let http = response as? HTTPURLResponse,
-           !(200...299).contains(http.statusCode) {
-            throw LoremPicsumPhotoServiceError.requestFailed(statusCode: http.statusCode)
-        }
-        
-        do {
-            return try JSONDecoder().decode([LoremPicsumPhoto].self, from: data)
-        } catch {
-            throw LoremPicsumPhotoServiceError.decodingFailed(error)
-        }
-    }
-}
-
-
+/// Enum of service errors
 enum LoremPicsumPhotoServiceError: LocalizedError {
     case invalidURL
     case requestFailed(statusCode: Int? = nil)
@@ -72,6 +43,35 @@ enum LoremPicsumPhotoServiceError: LocalizedError {
             } else {
                 return "An unknown error occurred."
             }
+        }
+    }
+}
+
+final class LoremPicsumPhotoService: LoremPicsumPhotoServiceProtocol {
+    
+    private let urlString = "https://picsum.photos/v2/list"
+    
+    func fetchLoremPicsumPhotos() async throws -> [LoremPicsumPhoto] {
+        guard let url = URL(string: urlString) else {
+            throw LoremPicsumPhotoServiceError.invalidURL
+        }
+        
+        let (data, response): (Data, URLResponse)
+        do {
+            (data, response) = try await URLSession.shared.data(from: url)
+        } catch {
+            throw LoremPicsumPhotoServiceError.requestFailed()
+        }
+        
+        if let http = response as? HTTPURLResponse,
+           !(200...299).contains(http.statusCode) {
+            throw LoremPicsumPhotoServiceError.requestFailed(statusCode: http.statusCode)
+        }
+        
+        do {
+            return try JSONDecoder().decode([LoremPicsumPhoto].self, from: data)
+        } catch {
+            throw LoremPicsumPhotoServiceError.decodingFailed(error)
         }
     }
 }
