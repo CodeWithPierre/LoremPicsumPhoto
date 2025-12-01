@@ -8,14 +8,56 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var viewModel = LoremPicsumPhotoViewModel()
+    
+    let spacing: CGFloat = 16
+    let imageHeight: CGFloat = 150
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            GeometryReader { geo in
+                let screenWidth = geo.size.width
+                let imageWidth = (screenWidth - spacing * 3) / 2
+                
+                ScrollView {
+                    LazyVGrid(
+                        columns: [
+                            GridItem(.fixed(imageWidth), spacing: spacing),
+                            GridItem(.fixed(imageWidth), spacing: spacing)
+                        ],
+                        spacing: spacing
+                    ) {
+                        ForEach(viewModel.loremPicsumPhotos) { photo in
+                            
+                            NavigationLink(destination: LoremPicsumPhotoDetailView(photo: photo)) {
+                                VStack(alignment: .leading, spacing: 8) {
+                                    
+                                    AsyncImage(url: URL(string: photo.downloadURL)) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                    .frame(width: imageWidth, height: imageHeight)
+                                    .clipped()
+                                    .accessibilityLabel("Photo by \(photo.author)")
+                                    .accessibilityHint("Double tap to view details")
+                                }
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityElement(children: .combine)
+                        }
+                    }
+                    .padding(.horizontal, spacing)
+                    .padding(.top, spacing)
+                }
+                .navigationTitle("Photos")
+            }
         }
-        .padding()
+        .task {
+            await viewModel.loadLoremPicsumPhotos()
+        }
     }
 }
 
