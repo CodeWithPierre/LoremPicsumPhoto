@@ -28,37 +28,33 @@ struct LoremPicsumPhotoDetailView: View {
                 
                 VStack(alignment: .leading, spacing: 10) {
                     
-                    Text("Author: \(photo.author)")
-                        .font(.headline)
-                        .accessibilityLabel("Author: \(photo.author)")
+                    (
+                        Text("Author: ").bold()
+                        + Text(photo.author)
+                    )
+                    .font(.headline)
+                    .accessibilityLabel("Author: \(photo.author)")
                     
-                    Text("ID: \(photo.id)")
-                        .accessibilityLabel("Photo ID: \(photo.id)")
+                    (
+                        Text("ID: ").bold()
+                        + Text(photo.id)
+                    )
+                    .accessibilityLabel("Photo ID: \(photo.id)")
                     
-                    Text("Size: \(photo.width) by \(photo.height)")
-                        .accessibilityLabel("Resolution: \(photo.width) by \(photo.height) pixels")
+                    (
+                        Text("Size: ").bold()
+                        + Text("\(photo.width.formatted(.number.grouping(.never)))x\(photo.height.formatted(.number.grouping(.never)))")
+                    )
+                    .accessibilityLabel("Resolution: \(photo.width)x\(photo.height)")
                     
-                    VStack(alignment: .leading) {
-                        Text("Original URL:")
-                            .bold()
-                            .accessibilityHidden(true)
-                        
-                        Text(photo.url)
+                    (
+                        Text("URL: ").bold()
+                        + Text(photo.url)
                             .foregroundColor(.blue)
-                            .textSelection(.enabled)
-                            .accessibilityLabel("Original URL, link: \(photo.url)")
-                    }
+                    )
+                    .textSelection(.enabled)
+                    .accessibilityLabel("URL: \(photo.url)")
                     
-                    VStack(alignment: .leading) {
-                        Text("Download URL:")
-                            .bold()
-                            .accessibilityHidden(true)
-                        
-                        Text(photo.downloadURL)
-                            .foregroundColor(.blue)
-                            .textSelection(.enabled)
-                            .accessibilityLabel("Download URL, link: \(photo.downloadURL)")
-                    }
                 }
             }
             .padding()
