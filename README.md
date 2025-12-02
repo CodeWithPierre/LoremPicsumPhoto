@@ -1,12 +1,22 @@
 # LoremPicsumPhoto
-I approached this challenge using MVVM to keep the code clean, organized, and easy to maintain. I used dependency injection in the ViewModel so I can quickly switch between the real network service and mock services, which makes testing much simpler.
+Built with MVVM to keep the code clean, organized, and easy to test.
 
-For networking, I used Swift’s modern async/await model and marked the ViewModel with @MainActor to ensure UI updates happen safely on the main thread. This keeps the code clear and avoids the complexity of callbacks.
+Used protocol-oriented programming and preferred structs for safer state and better memory use.
 
-To support testing, I built two mock services:
+Added dependency injection so the ViewModel can switch between real and mock services.
 
-One that returns sample data
+Added pagination with flexible page and limit values.
 
-One that simulates a network failure
+Networking uses Swift’s modern async/await.
 
-I also added basic accessibility support and built the UI entirely with SwiftUI.
+Marked the ViewModel with @MainActor for safe UI updates.
+
+Created two mock services for testing (success + failure).
+
+Added basic accessibility identifiers.
+
+Built the entire UI with SwiftUI.
+
+Uses AsyncImage for fast, cached image loading.
+
+Added a simple error enum to manage error messages cleanly.
