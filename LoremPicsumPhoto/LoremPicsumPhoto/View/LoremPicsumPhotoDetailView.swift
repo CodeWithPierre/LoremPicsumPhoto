@@ -20,7 +20,7 @@ struct LoremPicsumPhotoDetailView: View {
                         .resizable()
                         .scaledToFit()
                 } placeholder: {
-                    ProgressView()
+                    ProgressView("Loading Selected Photos…")
                 }
                 .frame(maxWidth: .infinity)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
