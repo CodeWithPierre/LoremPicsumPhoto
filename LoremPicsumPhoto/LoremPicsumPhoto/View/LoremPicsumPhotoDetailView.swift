@@ -54,6 +54,9 @@ struct LoremPicsumPhotoDetailView: View {
                     )
                     .textSelection(.enabled)
                     .accessibilityLabel("URL: \(photo.url)")
+                    .lineLimit(1)
+                    .allowsTightening(true)
+                    .minimumScaleFactor(0.1)
                     
                 }
             }

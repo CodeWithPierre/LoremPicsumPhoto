@@ -14,7 +14,7 @@ final class LoremPicsumPhotoViewModelTests: XCTestCase {
     // MARK: - Success Test
     func testloadLoremPicsumPhotosSuccess() async {
         let viewModel = LoremPicsumPhotoViewModel(service: MockCLoremPicsumPhotoServiceSuccess())
-        await viewModel.loadLoremPicsumPhotos()
+        await viewModel.loadLoremPicsumFromStart()
         
         XCTAssertEqual(viewModel.loremPicsumPhotos.count, 3)
         XCTAssertNil(viewModel.errorMessage)
@@ -23,7 +23,7 @@ final class LoremPicsumPhotoViewModelTests: XCTestCase {
     // MARK: - Failure Test
     func testloadLoremPicsumPhotosFailure() async {
         let viewModel = LoremPicsumPhotoViewModel(service: MockCLoremPicsumPhotoServiceFailure())
-        await viewModel.loadLoremPicsumPhotos()
+        await viewModel.loadLoremPicsumFromStart()
         
         XCTAssertTrue(viewModel.loremPicsumPhotos.isEmpty)
         XCTAssertNotNil(viewModel.errorMessage)

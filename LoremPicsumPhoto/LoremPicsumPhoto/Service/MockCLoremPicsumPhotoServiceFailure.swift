@@ -9,7 +9,7 @@ import SwiftUI
 import Foundation
 
 final class MockCLoremPicsumPhotoServiceFailure: LoremPicsumPhotoServiceProtocol {
-    func fetchLoremPicsumPhotos() async throws -> [LoremPicsumPhoto] {
+    func fetchLoremPicsumPhotos(_ page: Int, _ limit: Int) async throws -> [LoremPicsumPhoto] {
         throw LoremPicsumPhotoServiceError.requestFailed(statusCode: 500)
     }
 }

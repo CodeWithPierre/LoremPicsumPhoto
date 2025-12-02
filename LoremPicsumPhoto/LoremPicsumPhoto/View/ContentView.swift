@@ -47,6 +47,12 @@ struct ContentView: View {
                             }
                             .buttonStyle(.plain)
                             .accessibilityElement(children: .combine)
+                            .onAppear {
+                                Task {
+                                    await viewModel.loadNextLoremPicsumPage(photo: photo)
+                                }
+                            }
+
                         }
                     }
                     .padding(.horizontal, spacing)
@@ -56,7 +62,7 @@ struct ContentView: View {
             }
         }
         .task {
-            await viewModel.loadLoremPicsumPhotos()
+            await viewModel.loadLoremPicsumFromStart()
         }
     }
 }

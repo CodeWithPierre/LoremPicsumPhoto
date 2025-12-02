@@ -8,7 +8,7 @@ import Foundation
 
 ///Create a Service Protocol for dependency injection
 protocol LoremPicsumPhotoServiceProtocol {
-    func fetchLoremPicsumPhotos() async throws -> [LoremPicsumPhoto]
+    func fetchLoremPicsumPhotos(_ page: Int,_ limit: Int) async throws -> [LoremPicsumPhoto]
 }
 
 /// Enum of service errors
@@ -49,9 +49,11 @@ enum LoremPicsumPhotoServiceError: LocalizedError {
 
 final class LoremPicsumPhotoService: LoremPicsumPhotoServiceProtocol {
     
-    private let urlString = "https://picsum.photos/v2/list"
+    private let baseURL = "https://picsum.photos/v2/list"
     
-    func fetchLoremPicsumPhotos() async throws -> [LoremPicsumPhoto] {
+    func fetchLoremPicsumPhotos(_ page: Int,_ limit: Int = 30) async throws -> [LoremPicsumPhoto] {
+        
+        let urlString = "\(baseURL)?page=\(page)&limit=\(limit)"
         guard let url = URL(string: urlString) else {
             throw LoremPicsumPhotoServiceError.invalidURL
         }
