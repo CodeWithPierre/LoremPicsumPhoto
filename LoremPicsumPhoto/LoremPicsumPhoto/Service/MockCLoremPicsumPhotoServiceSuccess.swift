@@ -8,6 +8,7 @@
 import SwiftUI
 import Foundation
 
+/// Mock service that returns 3 successful items.
 final class MockCLoremPicsumPhotoServiceSuccess: LoremPicsumPhotoServiceProtocol {
     func fetchLoremPicsumPhotos(_ page: Int, _ limit: Int) async throws -> [LoremPicsumPhoto] {
         return [

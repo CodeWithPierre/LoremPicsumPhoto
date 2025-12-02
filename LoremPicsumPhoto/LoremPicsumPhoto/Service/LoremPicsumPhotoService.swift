@@ -51,6 +51,7 @@ final class LoremPicsumPhotoService: LoremPicsumPhotoServiceProtocol {
     
     private let baseURL = "https://picsum.photos/v2/list"
     
+    /// Fetches photos from the API using async/await.
     func fetchLoremPicsumPhotos(_ page: Int,_ limit: Int = 30) async throws -> [LoremPicsumPhoto] {
         
         let urlString = "\(baseURL)?page=\(page)&limit=\(limit)"

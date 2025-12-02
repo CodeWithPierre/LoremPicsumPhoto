@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Photo Master view
 struct ContentView: View {
     @StateObject private var viewModel = LoremPicsumPhotoViewModel()
     

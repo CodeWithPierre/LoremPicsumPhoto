@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Photo detail view.
 struct LoremPicsumPhotoDetailView: View {
     let photo: LoremPicsumPhoto
     

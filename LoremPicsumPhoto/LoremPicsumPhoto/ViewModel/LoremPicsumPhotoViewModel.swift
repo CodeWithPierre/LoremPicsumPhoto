@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// ViewModel for a Lorem Picsum photo, conforming to ObservableObject.
 @MainActor
 final class LoremPicsumPhotoViewModel: ObservableObject {
     
@@ -19,16 +20,19 @@ final class LoremPicsumPhotoViewModel: ObservableObject {
     
     private let service: LoremPicsumPhotoServiceProtocol
     
+    // Initializes the ViewModel using dependency injection for the photo service.
     init(service: LoremPicsumPhotoServiceProtocol = LoremPicsumPhotoService()) {
         self.service = service
     }
     
+    /// Reloads photos starting from page 1
     func loadLoremPicsumFromStart() async {
         page = 1
         loremPicsumPhotos = []
         await loadLoremPicsumPage(page)
     }
     
+    /// Load next page on scroll.
     func loadNextLoremPicsumPage(photo: LoremPicsumPhoto) async {
         guard !isLoading else { return }
         
@@ -40,6 +44,7 @@ final class LoremPicsumPhotoViewModel: ObservableObject {
         }
     }
     
+    /// Loads photos via the service.
     private func loadLoremPicsumPage(_ page: Int) async {
         guard !isLoading else { return }
         isLoading = true
