@@ -65,6 +65,15 @@ struct ContentView: View {
         .task {
             await viewModel.loadLoremPicsumFromStart()
         }
+        .alert("Something went wrong!", isPresented: Binding(
+            get: { viewModel.errorMessage != nil },
+            set: { _ in viewModel.errorMessage = nil }
+        )) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(viewModel.errorMessage ?? "Please try again later.")
+        }
+
     }
 }
 
