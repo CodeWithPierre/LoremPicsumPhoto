@@ -38,7 +38,7 @@ struct ContentView: View {
                                             .resizable()
                                             .scaledToFill()
                                     } placeholder: {
-                                        ProgressView()
+                                        ProgressView("Loading Photos...")
                                     }
                                     .frame(width: imageWidth, height: imageHeight)
                                     .clipped()
